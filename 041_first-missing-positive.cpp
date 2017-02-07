@@ -1,29 +1,27 @@
 class Solution {
-  public:
-    int firstMissingPositive(vector<int> &nums) {
-        if (nums.empty())
-            return 1;
-        int mn = -1, mx = -1;
-        int locSum = 0;
-        for (auto i : nums) {
-            if (i <= 0)
-                continue;
-            if (mn == -1 && mx == -1) {
-                mn = i;
-                mx = i;
+public:
+    int firstMissingPositive(vector<int>& v) {
+        // segregate
+        int j = 0;
+        for (int i = 0; i < v.size(); i++) {
+            if (v[i] <= 0) {
+                swap(v[i], v[j]);
+                j++;
             }
-            if (mn > i)
-                mn = i;
-            if (mx < i)
-                mx = i;
-            locSum += i;
         }
-        printf("mn=%d, mx=%d\n", mn, mx);
-        if (mn == -1 && mx == -1)
-            return 1;
-        int sum = mx * (mn + mx) / 2;
-        printf("locSum=%d, sum=%d\n", locSum, sum);
-
-        return sum == locSum ? mx + 1 : sum - locSum;
+        
+        for (int i = j; i < v.size(); i++) {
+            if (abs(v[i]) + j - 1 < v.size() && v[abs(v[i]) + j - 1] > 0) {
+                v[abs(v[i]) + j - 1] *= -1;
+            }
+        }
+        
+        for (int i = j; i < v.size(); i++) {
+            if (v[i] > 0) {
+                return i - j + 1;
+            }
+        }
+        
+        return v.size() - j + 1;
     }
 };
