@@ -1,37 +1,35 @@
 class Solution {
-private:
-    vector<vector<int>> f(vector<int> nums) {
-        vector<vector<int>> vvi;
-        if (nums.size() < 2) {
-            vvi.push_back(nums);
-            return vvi;
-        }
-        
-        if (nums.size() == 2) {
-            vvi.push_back({nums[0], nums[1]});
-            vvi.push_back({nums[1], nums[0]});
-            return vvi;
-        } 
-        
-        for (int i = 0; i < nums.size(); i++) {
-            vector<int> vi(nums.begin(), nums.begin() + i);
-            vi.insert(vi.end(), nums.begin() + i + 1, nums.end());
-            
-            auto tmp = f(vi);
-            for (auto v : tmp) {
-                vector<int> vt = {nums[i]};
-                vt.insert(vt.end(), v.begin(), v.end());
-                vvi.push_back(vt);
-            }
-        }
-        
-        return vvi;
-    }
 public:
     vector<vector<int>> permute(vector<int>& nums) {
         if (nums.empty()) {
             return {{}};
         }
-        return f(nums);
+        
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> vvi = {nums};
+        int n = nums.size();
+        int i = n - 1;
+        int j;
+        while (true) {
+            for (i = n - 1; i > 0; i--) {
+                if (nums[i - 1] < nums[i]) {
+                    break;
+                }
+            }
+            
+            if (i == 0) {
+                break;
+            }
+            
+            for (j = n - 1; j > i - 1; j--) {
+                if (nums[j] > nums[i - 1]) {
+                    break;
+                }
+            }
+            swap(nums[i - 1], nums[j]);
+            reverse(nums.begin() + i, nums.end());
+            vvi.push_back(nums);
+        }
+        return vvi;
     }
 };
