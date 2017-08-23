@@ -1,46 +1,43 @@
 class Solution {
 public:
     int romanToInt(string s) {
-        vector<int> v(s.size());
+        vector<int> v;
+        int val;
         for (char ch : s) {
-            int i;
+            val = 0;
             switch (ch) {
                 case 'I':
-                    i = 1;
+                    val = 1;
                     break;
                 case 'V':
-                    i = 5;
+                    val = 5;
                     break;
                 case 'X':
-                    i = 10;
+                    val = 10;
                     break;
                 case 'L':
-                    i = 50;
+                    val = 50;
                     break;
                 case 'C':
-                    i = 100;
+                    val = 100;
                     break;
                 case 'D':
-                    i = 500;
+                    val = 500;
                     break;
                 case 'M':
-                    i = 1000;
+                    val = 1000;
                     break;
             }
-            v.push_back(i);
+            v.push_back(val);
         }
-        int r = 0, c = v[0];
-        for (int i = 1; i < (int)v.size(); ++i) {
-            if (v[i] <= v[i - 1]) {
-                c += v[i];
-            } else if (v[i] > v[i - 1]) {
-                r += v[i] - c;
-                c = 0;
-            }
+        
+        int ans = 0;
+        int mx = 0;
+        for (int i = v.size() - 1; i >= 0; i--) {
+            ans += (v[i] < mx ? -1 * v[i] : v[i]);
+            mx = max(mx, v[i]);
         }
-        if (c) {
-            r += c;
-        };
-        return r;
+        
+        return ans;
     }
 };
