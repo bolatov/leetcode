@@ -9,47 +9,47 @@
 class Solution {
 public:
     ListNode* partition(ListNode* head, int x) {
-        if (!head || !head->next) {
-            return head;
-        }
+        // Maintain two linked lists 
+        //  l - Elements less than x
+        //  r - Elements greater than or equal to x.
+        //
+        // Additionally, keep references to their
+        // corresponing tail nodes (ltail, rtail).
+        ListNode *l = NULL;
+        ListNode *r = NULL;
+        ListNode *ltail = NULL;
+        ListNode *rtail = NULL;
         
-        // find first node where node->val < x
-        ListNode* node = head;
-        while (node && node->val >= x) {
-            if (node->next && node->next->val < x) {
-                ListNode* newHead = node->next;
-                node->next = node->next->next;
-                newHead->next = head;
-                head = newHead;
-                break;
-            }
-            node = node->next;
-        }
-        
-        //printf("head=%d\n", head->val);
-        
-        // find border node
-        ListNode* less = head;
-        while (less->next && less->next->val < x) {
-            less = less->next;
-        }
-        
-        //printf("less=%d\n", less->val);
-        
-        ListNode* greater = less ? less->next : less;
-        while (greater) {
-            if (greater->next && greater->next->val < x){
-                ListNode* mid = greater->next;
-                greater->next = greater->next->next;
-                
-                mid->next = less->next;
-                less->next = mid;
-                less = less->next;
+        while (head) {
+            ListNode* nxt = head->next;
+            head->next = NULL;
+            if (head->val < x) {
+                if (l) {
+                    ltail->next = head;
+                    ltail = ltail->next;
+                } else {
+                    l = ltail = head;
+                }
             } else {
-                greater = greater->next;
+                if (r) {
+                    rtail->next = head;
+                    rtail = rtail->next;
+                } else {
+                    r = rtail = head;
+                }
             }
+            head = nxt;
         }
         
-        return head;
+        // Check if there are nodes where node value
+        // is less than x.
+        if (ltail) {
+            ltail->next = r;
+            return l;
+        }
+        
+        // Otherwise, there are only nodes with values
+        // greater than or equal to x.
+        return r;
     }
 };
