@@ -23,4 +23,14 @@ public:
         }
         return "";
     }
+    
+    string findLongestWord2(string s, vector<string>& d) {
+        string ans = "";
+        for (string k : d) {
+            if (k.size() >= ans.size() && check(s, k)) {
+                ans = k.size() > ans.size() ? k : min(ans, k);
+            }
+        }
+        return ans;
+    }
 };
