@@ -37,4 +37,31 @@ public:
         
         return vvi;
     }
+    
+    // Solved again on Aug 17, 2018
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> vvi;
+        sort(nums.begin(), nums.end());
+        for (int i = 0; i < nums.size(); i++) {
+            int l = i + 1, r = nums.size() - 1;
+            if (!vvi.empty() && vvi[vvi.size() - 1][0] == nums[i]) {
+                continue;
+            }
+            while (l < r) {
+                int sum = nums[i] + nums[l] + nums[r];
+                if (sum == 0) {
+                    if (vvi.empty() || !(vvi[vvi.size() - 1][0] == nums[i] && vvi[vvi.size() - 1][1] == nums[l])) {
+                        vvi.push_back({nums[i], nums[l], nums[r]});
+                    }
+                }
+                
+                if (sum < 0) {
+                    l++;
+                } else {
+                    r--;
+                }
+            }
+        }
+        return vvi;
+    }
 };
