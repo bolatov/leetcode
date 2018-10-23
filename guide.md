@@ -11,15 +11,15 @@ What operations they allow to perform? What are the runtime complexities?
   - [ ] Merge Sort
   - [ ] Counting sort
   - [ ] Radix sort
-- [ ] Binary search
-- [ ] DFS
-- [ ] BFS
+- [x] Binary search
+- [x] DFS
+- [x] BFS
 - [ ] DSU (?)
 - [ ] Stack
   - [ ] Min/Max stack
 - [ ] Queue
 - [ ] Heap
-- [ ] Linked list
+- [x] Linked list
 - [ ] KMP
 - [ ] Hashes (Rabin-Karp)
 - [ ] Segment Tree (?)
