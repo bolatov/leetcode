@@ -14,7 +14,7 @@ What operations they allow to perform? What are the runtime complexities?
 - [x] Binary search
 - [x] DFS
 - [x] BFS
-- [ ] DSU (?)
+- [ ] Disjoint Set Union
 - [ ] Stack
   - [ ] Min/Max stack
 - [ ] Queue
