@@ -21,7 +21,7 @@ What operations they allow to perform? What are the runtime complexities?
 - [ ] Heap
 - [x] Linked list
 - [ ] KMP
-- [ ] Hashes (Rabin-Karp)
+- [x] Hashes (Rabin-Karp)
 - [ ] Segment Tree (?)
 - [ ] Binary Indexed Tree (aka Fenwick tree)
 
