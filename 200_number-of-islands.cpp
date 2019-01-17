@@ -1,3 +1,52 @@
+// 12 ms
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int rows = grid.size();
+        int cols = rows > 0 ? grid[0].size() : 0;
+        vector<vector<bool>> used(rows, vector<bool>(cols, false));
+        queue<pair<int, int>> q;
+        int islands = 0;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (grid[i][j] == '0' || used[i][j]) continue;
+                islands++;
+                q.push({i, j});
+                used[i][j] = true;
+                while (!q.empty()) {
+                    auto p = q.front();
+                    q.pop();
+                    // east
+                    if (p.second + 1 < cols && grid[p.first][p.second + 1] == '1' && !used[p.first][p.second + 1]) {
+                        q.push({p.first, p.second + 1});
+                        used[p.first][p.second + 1] = true;
+                    }
+                    
+                    // south
+                    if (p.first + 1 < rows && grid[p.first + 1][p.second] == '1' && !used[p.first + 1][p.second]) {
+                        q.push({p.first + 1, p.second});
+                        used[p.first + 1][p.second] = true;
+                    }
+                    
+                    // west
+                    if (p.second - 1 >= 0 && grid[p.first][p.second - 1] == '1' && !used[p.first][p.second - 1]) {
+                        q.push({p.first, p.second - 1});
+                        used[p.first][p.second - 1] = true;
+                    }
+                    
+                    // north
+                    if (p.first - 1 >= 0 && grid[p.first - 1][p.second] == '1' && !used[p.first - 1][p.second]) {
+                        q.push({p.first - 1, p.second});
+                        used[p.first - 1][p.second] = true;
+                    }
+                }
+            }
+        }
+        return islands;
+    }
+};
+
+// 13 ms
 class Solution {
 private:
     void expand(vector<vector<char>>& grid, vector<vector<bool>>& u, int i, int j) {
