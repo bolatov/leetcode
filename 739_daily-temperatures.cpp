@@ -1,3 +1,22 @@
+// slow, but elegant
+// inspired by "Explore Stack & Queue" tutorial.
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& T) {
+        vector<int> vi(T.size(), 0);
+        stack<pair<int, int>> st;
+        for (int i = 0; i < T.size(); i++) {
+            while (!st.empty() && st.top().first < T[i]) {
+                vi[st.top().second] = i - st.top().second;
+                st.pop();
+            }
+            st.push({T[i], i});
+        }
+        return vi;
+    }
+};
+
+// fast
 class Solution {
 public:
     static const int MAX_TEMP = 100;
