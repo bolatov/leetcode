@@ -1,3 +1,30 @@
+// Updated. Solved by following the "Explore Queue & Stack" tutorial
+class Solution {
+public:
+    UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
+        if (!node) {
+            return node;
+        }
+        unordered_map<int, UndirectedGraphNode*> mp;
+        stack<UndirectedGraphNode*> st;
+        st.push(node);
+        while (!st.empty()) {
+            auto top = st.top();
+            st.pop();
+            mp[top->label] = mp.count(top->label) ? mp[top->label] : new UndirectedGraphNode(top->label);
+            for (auto nb : top->neighbors) {
+                auto nbCopy = mp.count(nb->label) ? mp[nb->label] : new UndirectedGraphNode(nb->label);
+                if (!mp.count(nb->label)) {
+                    st.push(nb);
+                }
+                mp[top->label]->neighbors.push_back(nbCopy);
+                mp[nb->label] = nbCopy;
+            }
+        }
+        return mp[node->label];
+    }
+};
+
 /**
  * Definition for undirected graph.
  * struct UndirectedGraphNode {
