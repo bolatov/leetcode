@@ -15,9 +15,9 @@ What operations they allow to perform? What are the runtime complexities?
 - [x] DFS
 - [x] BFS
 - [ ] Disjoint Set Union
-- [ ] Stack
+- [x] Stack
   - [ ] Min/Max stack
-- [ ] Queue
+- [x] Queue
 - [ ] Heap
 - [x] Linked list
 - [ ] KMP
