@@ -1,3 +1,62 @@
+// Explore "Stacks & Queues"
+class Solution {
+private:
+    bool isBetween(char ch, char start, char end) {
+        return start <= ch && ch <= end;
+    }
+    void p(stack<string> st) {
+        cout << "Stack: ";
+        while(!st.empty()) {
+            cout << st.top() << " ";
+            st.pop();
+        }
+        cout << endl;
+    }
+public:
+    string decodeString(string s) {
+        if (s.empty()) return "";
+        s = "1[" + s + "]";
+        stack<string> st;
+        for (char ch : s) {
+            if (ch == '[') {
+                st.push("[");
+            } else if (ch == ']') {
+                string top = st.top();
+                st.pop(); // pop letters
+                st.pop(); // pop '['
+                string num = st.top();
+                int n = stoi(num);
+                st.pop();
+                string x = "";
+                if (!st.empty() && (isBetween(st.top()[0], 'a', 'z') || isBetween(st.top()[0], 'A', 'Z'))) {
+                    x = st.top();
+                    st.pop();
+                }
+                while (n--) {
+                    x += top;
+                }
+                st.push(x);
+                // p(st);
+            } else if ('0' <= ch && ch <= '9') {
+                string num = "";
+                if (!st.empty() && isBetween(st.top()[0], '0', '9')) {
+                    num = st.top();
+                    st.pop();
+                }
+                st.push(num + ch);
+            } else {
+                string w = "";
+                if (!st.empty() && (isBetween(st.top()[0], 'a', 'z') || (isBetween(st.top()[0], 'A', 'Z')))) {
+                    w = st.top();
+                    st.pop();
+                }
+                st.push(w + ch);
+            }
+        }
+        return st.top();
+    }
+};
+
 class Solution {
 public:
     string decodeString(string s) {
