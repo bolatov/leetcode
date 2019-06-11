@@ -30,7 +30,7 @@ class NumArray:
 
     def sumRange(self, i: int, j: int) -> int:
         def rsq(pos, lo, hi):
-            if j < lo or hi < hi:
+            if j < lo or hi < i:
                 return 0
             if i <= lo and hi <= j:
                 return self.tree[pos]
