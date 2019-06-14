@@ -7,14 +7,14 @@ class Solution:
             tokens = log.split(':')
             func_id, timestamp = int(tokens[0]), int(tokens[2])
             if not stack:
-                stack.append((func_id, tokens[1], timestamp))
-            elif stack[-1][0] == func_id and stack[-1][1] != tokens[1]:
+                stack.append(func_id)
+            elif stack[-1] == func_id and tokens[1] == 'end':
                 timestamp += 1
                 stack.pop()
                 dct[func_id] += timestamp - start_time
             else:
-                prev_func_id = stack[-1][0]
+                prev_func_id = stack[-1]
                 dct[prev_func_id] += timestamp - start_time
-                stack.append((func_id, tokens[1], timestamp))
+                stack.append(func_id)
             start_time = timestamp
         return dct
