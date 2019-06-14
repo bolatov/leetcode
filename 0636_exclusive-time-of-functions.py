@@ -1,6 +1,6 @@
 class Solution:
     def exclusiveTime(self, n: int, logs: List[str]) -> List[int]:
-        dct = collections.defaultdict(int)
+        dct = [0] * n
         stack = collections.deque([])
         start_time = None
         for log in logs:
@@ -17,4 +17,4 @@ class Solution:
                 dct[prev_func_id] += timestamp - start_time
                 stack.append((func_id, tokens[1], timestamp))
             start_time = timestamp
-        return [dct[i] for i in range(n)]
+        return dct
