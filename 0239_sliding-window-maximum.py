@@ -7,14 +7,14 @@ class Solution:
         ans = []
         deque = collections.deque([])
         for i in range(k-1):
-            while deque and deque[-1][0] <= nums[i]:
+            while deque and nums[deque[-1]] <= nums[i]:
                 deque.pop()
-            deque.append((nums[i], i))
+            deque.append(i)
         for i in range(k-1, len(nums)):
-            if i - deque[0][1] >= k:
+            if i - deque[0] >= k:
                 deque.popleft()
-            while deque and deque[-1][0] <= nums[i]:
+            while deque and nums[deque[-1]] <= nums[i]:
                 deque.pop()
-            deque.append((nums[i], i))
-            ans.append(deque[0][0])
+            deque.append(i)
+            ans.append(nums[deque[0]])
         return ans
