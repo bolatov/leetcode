@@ -1,3 +1,5 @@
+# Attempt 1
+# Slow solution
 from collections import Counter
 class Solution:
     def numTilePossibilities(self, tiles: str) -> int:
@@ -15,5 +17,29 @@ class Solution:
                 if new_cnt[key] == 0:
                     new_cnt.pop(key)
                 backtrack(new_seq, new_cnt)
+        backtrack()
+        return len(sequences)
+
+# Attempt 2
+# Faster solution
+class Solution:
+    def numTilePossibilities(self, tiles: str) -> int:
+        sequences = set()
+        letters = [char for char in tiles]
+        def backtrack(seq=[]):
+            if seq:
+                s = ''.join(seq)
+                if s in sequences:
+                    return
+                sequences.add(s)
+            for i in range(len(letters)):
+                if letters[i] == '.':
+                    continue
+                char = letters[i]
+                letters[i] = '.'
+                seq.append(char)
+                backtrack(seq)
+                seq.pop()
+                letters[i] = char
         backtrack()
         return len(sequences)
