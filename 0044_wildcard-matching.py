@@ -20,3 +20,29 @@ class Solution:
         if s == p or p == '*':
             return True
         return is_match(0, 0)
+
+class Solution:
+    """
+    Solution from discussions:
+    https://leetcode.com/problems/wildcard-matching/discuss/138878/Finite-state-machine-with-Python-and-dictionary.-13-lines-O(p%2Bs)-time
+    """
+    def isMatch(self, s: str, p: str) -> bool:
+        transfers = {}
+        state = 0
+        
+        # Build the finite-state-maching
+        for char in p:
+            if char == '*':
+                transfers[state, char] = state
+            else:
+                transfers[state, char] = state + 1
+                state += 1
+        
+        # Run the FSM and collect all reachable states
+        accept = state
+        states = set([0])
+        for char in s:
+            states = set([transfers.get((at, token)) for at in states for token in [char, '*', '?']])
+        
+        # Check if `accept` state can be reached
+        return accept in states
